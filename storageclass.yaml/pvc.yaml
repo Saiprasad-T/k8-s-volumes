@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pv-claim
+  namespace: roboshop
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: my-ebs-sc
+  resources:
+    requests:
+      storage: 4Gi
