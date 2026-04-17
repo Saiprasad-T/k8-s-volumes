@@ -1,12 +1,12 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pv-claim
+  name: pv-claim-efs
   namespace: roboshop
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: my-ebs-sc
+  storageClassName: efs-sc
   resources:
     requests:
       storage: 4Gi
