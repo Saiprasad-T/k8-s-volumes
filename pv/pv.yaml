@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ebs-static-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: ebs.csi.aws.com
+    volumeHandle: vol-0d3e1c84d6a9598e1  # your EBS volume ID
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pv-claim
+  namespace: roboshop
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pv-pod
+  namespace: roboshop
+spec:
+  containers:
+   - name: nginx
+     image: nginx
+     volumeMounts:
+      - name: volume-mount
+        mountPath: /usr/share/nginx/html
+     spec:
+       nodeSelector:
+         topology.kubernetes.io/zone: us-east-1a
+  volumes:
+    - name: volume-mount
+      persistentVolumeClaim:
+        claimName: pv-claim
