@@ -10,7 +10,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   csi:
     driver: ebs.csi.aws.com
-    volumeHandle: vol-0d3e1c84d6a9598e1  # your EBS volume ID
+    volumeHandle: vol-0dc8e7634252b94bf  # your EBS volume ID
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
